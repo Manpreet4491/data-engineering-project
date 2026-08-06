@@ -1,0 +1,19 @@
+import dlt
+from config import LANDING_BASE
+from utils import load_auto_loader, add_metadata_col
+
+@dlt.table(
+    name="products_raw",
+    comment="Bronze: raw product catalog via Auto Loader. Supports CSV, JSON, and Parquet.",
+    table_properties={"quality": "bronze"},
+)
+@dlt.expect("valid_product_id", "product_id IS NOT NULL")
+def products_raw():
+    # Load data with Auto Loader - supports csv, json, parquet
+    df = load_auto_loader(
+        source_path=f"{LANDING_BASE}/products/",
+        file_format="csv"  # Change to 'json' or 'parquet' as needed
+    )
+    
+    # Add metadata columns (file_name, file_path, ingestion_date)
+    return add_metadata_col(df)
