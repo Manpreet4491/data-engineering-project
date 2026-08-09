@@ -11,7 +11,6 @@ def suppliers_raw():
     # Load data with Auto Loader - supports csv, json, parquet
     df = load_auto_loader(
         source_path=f"{LANDING_BASE}/suppliers/",
-        file_format="csv"  # Change to 'json' or 'parquet' as needed
     )
     
     # Add metadata columns (file_name, file_path, ingestion_date)
