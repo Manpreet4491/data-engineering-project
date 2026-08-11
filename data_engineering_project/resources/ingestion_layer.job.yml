@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    data_engineering_project_job:
+      name: data_engineering_project_job_latest
+      tasks:
+        - task_key: ingestion_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_ingestion_pipeline.id}
+        - task_key: silver_layer
+          depends_on:
+            - task_key: ingestion_pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/botmanpreet2021@gmail.com/data-engineering-project/data_engineering_project/src/silver/silver_main
+            source: WORKSPACE
+        - task_key: gold_layer
+          depends_on:
+            - task_key: silver_layer
+          notebook_task:
+            notebook_path: /Workspace/Users/botmanpreet2021@gmail.com/data-engineering-project/data_engineering_project/src/gold/gold_main
+            source: WORKSPACE
+        - task_key: dashboard_layer
+          depends_on:
+            - task_key: gold_layer
+          dashboard_task:
+            subscription: {}
+            dashboard_id: 01f19197e235111ea8a8761fee042fcc
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+      performance_target: PERFORMANCE_OPTIMIZED
