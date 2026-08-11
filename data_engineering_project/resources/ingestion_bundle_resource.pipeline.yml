@@ -1,0 +1,18 @@
+resources:
+  pipelines:
+    pipeline_ingestion_pipeline:
+      name: Ingestion_pipeline
+      allow_duplicate_names: true
+      configuration:
+        catalog: ${var.catalog}
+      libraries:
+        - glob:
+            include: /Workspace/Users/botmanpreet2021@gmail.com/data-engineering-project/data_engineering_project/src/bronze/ingestion_pipeline/transformations/**
+      schema: bronze
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: ${var.catalog}
+      serverless: true
+      root_path: /Workspace/Users/botmanpreet2021@gmail.com/data-engineering-project/data_engineering_project/src/bronze/ingestion_pipeline
