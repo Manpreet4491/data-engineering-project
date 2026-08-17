@@ -255,22 +255,3 @@ SET TAGS (
     'layer' = 'gold',
     'security_model' = 'region_restricted'
 );
-
--- =============================================================================
--- VALIDATION
--- =============================================================================
--- Run after the script to verify metadata:
---
-DESCRIBE TABLE EXTENDED dev.silver.customers_clean;
-DESCRIBE TABLE EXTENDED dev.silver.products_scd2;
-DESCRIBE TABLE EXTENDED dev.silver.sales_clean;
-DESCRIBE TABLE EXTENDED dev.silver.suppliers_scd2;
-DESCRIBE TABLE EXTENDED dev.gold.customer_metrics;
-DESCRIBE TABLE EXTENDED dev.gold.daily_kpis;
-DESCRIBE TABLE EXTENDED dev.gold.product_analytics;
-DESCRIBE TABLE EXTENDED dev.gold.sales_summary;
-
--- Optional UC metadata checks:
-SELECT * FROM dev.information_schema.table_tags;
-SELECT * FROM dev.information_schema.column_tags;
--- =============================================================================
